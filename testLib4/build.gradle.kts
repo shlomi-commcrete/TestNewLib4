@@ -15,7 +15,7 @@ if (project.file("buildconfig.local.properties").exists()) {
     println("buildconfig.local.properties Create")
     buildConfigProperties.load(FileInputStream(project.file("buildconfig.local.properties")))
 }
-val ABI_FILTERS: List<String> by extra(listOf("arm64-v8a", "x86_64", "armeabi-v7a"))
+val ABI_FILTERS: List<String> by extra(listOf("arm64-v8a", "x86_64", "armeabi-v7a", "x86"))
 
 println("ABI_FILTERS " + buildConfigProperties["abi.filters"])
 println("repo.dir " + buildConfigProperties["repo.dir"])
@@ -29,6 +29,8 @@ val cmakeDir = localProperties.getProperty("cmake.dir")
 // Note: Adjust the relative path to the cmake executable as necessary based on your CMake version and OS
 val cmakeExecutablePath = "$cmakeDir/bin/cmake"
 println("cmake.dir " + "$cmakeDir/bin/cmake")
+
+
 
 android {
     namespace = "com.commcrete.testlib4"
@@ -67,14 +69,27 @@ android {
 
 tasks.configureEach {
     if (name == "externalNativeBuildDebug") {
-        dependsOn("compileCodec2")
+        dependsOn(compileCodec2)
     }
     if (name == "externalNativeBuildRelease") {
-        dependsOn("compileCodec2")
+        dependsOn(compileCodec2)
+    }
+    if(name == "assembleDebug"){
+        dependsOn(compileCodec2)
+    }
+    if(name == "assembleRelease"){
+        dependsOn(compileCodec2)
+    }
+    if(name == "bundleReleaseAar"){
+        dependsOn(compileCodec2)
     }
 }
 
-tasks.register("compileCodec2") {
+tasks.named("preBuild") {
+    dependsOn(compileCodec2)
+}
+
+val compileCodec2 by tasks.registering {
     doFirst {
         System.out.println("android.ndkDirectory : " + android.ndkDirectory)
         project.file("build/codec2_build_linux").mkdirs()
@@ -131,7 +146,6 @@ tasks.register("compileCodec2") {
     }
 }
 
-
 dependencies {
 
     implementation("androidx.core:core-ktx:1.9.0")
@@ -143,6 +157,8 @@ dependencies {
 }
 
 afterEvaluate {
+
+
     publishing {
         publications {
             create<MavenPublication>("release") {

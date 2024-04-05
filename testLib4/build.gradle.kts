@@ -24,11 +24,15 @@ val localProperties = Properties().apply {
     load(project.rootProject.file("local.properties").inputStream())
 }
 
-val cmakeDir = localProperties.getProperty("cmake.dir")
-// Construct the path to the CMake binary
-// Note: Adjust the relative path to the cmake executable as necessary based on your CMake version and OS
-val cmakeExecutablePath = "$cmakeDir/bin/cmake"
-println("cmake.dir " + "$cmakeDir/bin/cmake")
+//val cmakeDir = localProperties.getProperty("cmake.dir")
+//// Construct the path to the CMake binary
+//// Note: Adjust the relative path to the cmake executable as necessary based on your CMake version and OS
+//val cmakeExecutablePath = "$cmakeDir/bin/cmake"
+
+val sdkDir = System.getenv("ANDROID_SDK_ROOT") ?: localProperties.getProperty("sdk.dir")
+val cmakeVersion = "3.22.1"
+val cmakeExecutablePath = "$sdkDir/cmake/$cmakeVersion/bin/cmake"
+println("cmake.dir " + "$cmakeExecutablePath")
 
 
 
@@ -56,6 +60,7 @@ android {
     externalNativeBuild {
         cmake {
             path = file("src/main/cpp/CMakeLists.txt")
+            version = ("3.22.1")
         }
     }
     compileOptions {

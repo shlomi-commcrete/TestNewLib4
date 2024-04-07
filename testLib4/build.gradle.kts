@@ -34,6 +34,13 @@ val cmakeVersion = "3.22.1"
 val cmakeExecutablePath = "$sdkDir/cmake/$cmakeVersion/bin/cmake"
 println("cmake.dir " + "$cmakeExecutablePath")
 
+val file = File(cmakeExecutablePath)
+if (file.exists() && file.isFile) {
+    println("The cmake executable exists at: $cmakeExecutablePath")
+} else {
+    println("The cmake executable does not exist at: $cmakeExecutablePath")
+}
+
 
 
 android {

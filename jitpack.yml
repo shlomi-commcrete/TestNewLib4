@@ -6,5 +6,5 @@ jdk:
 before_install:
   # Install the specific version of CMake
   - yes | sdkmanager "cmake;3.22.1"
-  - sdk install java 17.0.10-open
-  - sdk use java 17.0.10-open
+  - sdk install java 17.0.9-oracle
+  - sdk use java 17.0.9-oracle

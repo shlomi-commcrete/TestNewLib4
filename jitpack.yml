@@ -1,10 +1,6 @@
 before_install:
   # Install the specific version of CMake
   - yes | sdkmanager "cmake;3.22.1"
-  # Optional: List installed CMake versions for debugging
-  - ls /opt/android-sdk-linux/cmake/ || echo "CMake directory not found"
-  # Ensure the CMake version is correctly installed by listing its contents
-  - ls /opt/android-sdk-linux/cmake/3.22.1/bin/ || echo "CMake 3.22.1 not installed"
 
 jdk:
   - openjdk17

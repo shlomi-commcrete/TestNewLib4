@@ -109,11 +109,15 @@ val compileCodec2 by tasks.registering {
     }
     doLast {
         exec {
+            println("projectDir : $projectDir")
+            println("cmakeExecutablePath : $cmakeExecutablePath")
             workingDir = project.file("build/codec2_build_linux")
             commandLine(cmakeExecutablePath, "$projectDir/src/codec2")
         }
         exec {
+            println("build/codec2_build_linux")
             workingDir = project.file("build/codec2_build_linux")
+            println("/usr/bin/make")
             commandLine("/usr/bin/make")
         }
 

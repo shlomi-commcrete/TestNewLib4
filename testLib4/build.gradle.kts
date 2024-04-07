@@ -119,11 +119,21 @@ val compileCodec2 by tasks.registering {
             println("projectDir : $projectDir")
             println("cmakeExecutablePath : $cmakeExecutablePath")
             workingDir = project.file("build/codec2_build_linux")
+            if (workingDir.exists()) {
+                println("The cmake executable exists at: $workingDir")
+            } else {
+                println("The cmake executable does not exist at: $workingDir")
+            }
             commandLine(cmakeExecutablePath, "$projectDir/src/codec2")
         }
         exec {
             println("build/codec2_build_linux")
             workingDir = project.file("build/codec2_build_linux")
+            if (workingDir.exists()) {
+                println("The cmake executable exists at: $workingDir")
+            } else {
+                println("The cmake executable does not exist at: $workingDir")
+            }
             println("/usr/bin/make")
             commandLine("/usr/bin/make")
         }

@@ -44,7 +44,7 @@ if (file.exists() && file.isFile) {
 
 
 android {
-    namespace = "com.commcrete.testlib4"
+    namespace = "com.commcrete.codec2"
     compileSdk = 33
 
     defaultConfig {
@@ -199,9 +199,9 @@ afterEvaluate {
             create<MavenPublication>("release") {
                 from(components["release"])
 
-                groupId = "com.github.kenmaro3"
-                artifactId = "my-library"
-                version = "0.0.0"
+                groupId = "com.commcrete.codec2"
+                artifactId = "codec2"
+                version = "0.0.15"
             }
         }
     }

@@ -70,6 +70,7 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    ndkVersion = ("26.1.10909125")
 }
 
 tasks.configureEach {
@@ -97,6 +98,7 @@ tasks.named("preBuild") {
 val compileCodec2 by tasks.registering {
     doFirst {
         System.out.println("android.ndkDirectory : " + android.ndkDirectory)
+        System.out.println("project : " + project)
         project.file("build/codec2_build_linux").mkdirs()
         ABI_FILTERS.forEach() { abi ->
             System.out.println("Create abi " + abi)
